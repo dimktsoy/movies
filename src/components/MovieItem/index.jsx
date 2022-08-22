@@ -1,4 +1,5 @@
 import { Card, Space, Typography } from 'antd';
+import { NavLink } from 'react-router-dom';
 
 import './MovieItem.scss';
 
@@ -16,16 +17,18 @@ function Description({ Year, Type }) {
 
 function MovieItem({ Title, Year, Type, Poster, imdbID }) {
   return (
-    <Card
-      className="movie-item"
-      hoverable
-      cover={<img alt={Title} src={Poster} />}
-    >
-      <Meta
-        title={Title}
-        description={<Description Year={Year} Type={Type} />}
-      />
-    </Card>
+    <NavLink to={imdbID}>
+      <Card
+        className="movie-item"
+        hoverable
+        cover={<img alt={Title} src={Poster} />}
+      >
+        <Meta
+          title={Title}
+          description={<Description Year={Year} Type={Type} />}
+        />
+      </Card>
+    </NavLink>
   );
 }
 
