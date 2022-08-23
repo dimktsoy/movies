@@ -21,7 +21,7 @@ class MoviePage extends React.Component {
 
     this.setState({ isLoading: true });
 
-    fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${movieID}`)
+    fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${movieID}&plot=full`)
       .then((response) => response.json())
       .then((data) => {
         this.setState({ data });
