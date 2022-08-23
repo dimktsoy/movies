@@ -25,7 +25,11 @@ function SearchForm({
             onKeyDown={handleKeyDown}
             value={title}
           />
-          <Button type="primary" onClick={onSearchMovie} loading={isLoading}>
+          <Button
+            type="primary"
+            onClick={() => onSearchMovie()}
+            loading={isLoading}
+          >
             Search
           </Button>
         </Input.Group>
