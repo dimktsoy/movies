@@ -1,4 +1,8 @@
 import React from 'react';
+import { notification } from 'antd';
+
+import api from '../api';
+
 import Loader from '../components/Loader';
 import MovieList from '../components/MovieList';
 import PaginationPanel from '../components/PaginationPanel';
@@ -19,15 +23,15 @@ class HomePage extends React.Component {
     try {
       this.setState({ isLoading: true });
 
-      const apiKey = process.env.REACT_APP_API_KEY;
+      const paramsObj = {
+        s: this.state.search.title,
+        type: this.state.search.type === 'all' ? '' : this.state.search.type,
+        page,
+      };
 
-      const response = await fetch(
-        `http://www.omdbapi.com/?apikey=${apiKey}&s=${this.state.search.title}${
-          this.state.search.type === 'all'
-            ? ''
-            : `&type=${this.state.search.type}`
-        }&page=${page}`
-      );
+      const searchParams = new URLSearchParams(paramsObj);
+
+      const response = await api.endponts.search(searchParams);
 
       const {
         Search,
@@ -45,6 +49,11 @@ class HomePage extends React.Component {
         totalResults: parseInt(totalResults, 10),
       });
     } catch (error) {
+      notification.info({
+        message: 'Error',
+        description: error.message,
+        placement: 'top',
+      });
       this.setState({ movies: [], totalResults: 0 });
     } finally {
       this.setState({ isLoading: false });

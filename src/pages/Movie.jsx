@@ -1,5 +1,9 @@
 import React from 'react';
+import { notification } from 'antd';
 import { useParams } from 'react-router-dom';
+
+import api from '../api';
+
 import Loader from '../components/Loader';
 import Movie from '../components/Movie';
 
@@ -15,23 +19,37 @@ class MoviePage extends React.Component {
     isLoading: true,
   };
 
-  componentDidMount() {
-    const apiKey = process.env.REACT_APP_API_KEY;
-    const { movieID } = this.props.params;
+  async componentDidMount() {
+    try {
+      this.setState({ isLoading: true });
 
-    this.setState({ isLoading: true });
+      const { movieID } = this.props.params;
 
-    fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${movieID}&plot=full`)
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ data });
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        this.setState({ isLoading: false });
+      const paramsObj = {
+        i: movieID,
+        plot: 'full',
+      };
+
+      const searchParams = new URLSearchParams(paramsObj);
+
+      const response = await api.endponts.getMovie(searchParams);
+
+      const { Response, Error: errorMessage, ...data } = await response.json();
+
+      if (Response === 'False') {
+        throw new Error(errorMessage);
+      }
+
+      this.setState({ data });
+    } catch (error) {
+      notification.info({
+        message: 'Error',
+        description: error.message,
+        placement: 'top',
       });
+    } finally {
+      this.setState({ isLoading: false });
+    }
   }
 
   render() {
