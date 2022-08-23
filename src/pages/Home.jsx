@@ -19,8 +19,10 @@ class HomePage extends React.Component {
     try {
       this.setState({ isLoading: true });
 
+      const apiKey = process.env.REACT_APP_API_KEY;
+
       const response = await fetch(
-        `http://www.omdbapi.com/?apikey=fded1e22&s=${this.state.search.title}${
+        `http://www.omdbapi.com/?apikey=${apiKey}&s=${this.state.search.title}${
           this.state.search.type === 'all'
             ? ''
             : `&type=${this.state.search.type}`
