@@ -1,11 +1,11 @@
 import { Header } from 'antd/lib/layout/layout';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './PageHeader.scss';
 
 function PageHeader() {
   return (
     <Header className="page-header">
-      <NavLink to="/">Header</NavLink>
+      <Link to="/">Header</Link>
     </Header>
   );
 }

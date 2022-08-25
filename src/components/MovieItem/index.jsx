@@ -1,5 +1,5 @@
 import { Card, Space, Typography } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './MovieItem.scss';
 
@@ -17,7 +17,7 @@ function Description({ Year, Type }) {
 
 function MovieItem({ Title, Year, Type, Poster, imdbID }) {
   return (
-    <NavLink to={imdbID}>
+    <Link to={imdbID}>
       <Card
         className="movie-item"
         hoverable
@@ -28,7 +28,7 @@ function MovieItem({ Title, Year, Type, Poster, imdbID }) {
           description={<Description Year={Year} Type={Type} />}
         />
       </Card>
-    </NavLink>
+    </Link>
   );
 }
 
