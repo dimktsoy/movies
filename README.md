@@ -17,7 +17,7 @@
 
 ## Демо
 
-- [movies](https://dimktsoy.github.io/movies/)
+- [movies](https://dimktsoy.github.io/movies)
 
 ## Используемые ресурсы и инструменты:
 
